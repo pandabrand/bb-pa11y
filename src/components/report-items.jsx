@@ -8,11 +8,11 @@ class ReportItems extends React.Component {
         let reportNodes = this.props.results[key].map(
             function(node, index) {
                 return <div key={index} className="w-full bg-gray-500 mb-8 p-3">
-                    <div className="text-lg text-white">{node.code}</div>
-                    <div className="text-red-800 text-bold">{node.type}</div>
-                    <div>{node.message}</div>
-                    <div>{node.context}</div>
-                    <div>{node.selector}</div>
+                    <div className="text-lg text-white p-1">{node.code}</div>
+                    <div className="text-red-800 font-bold p-1">{node.type}</div>
+                    <div className="p-2">{node.message}</div>
+                    <div className="p-2">{node.context}</div>
+                    <div className="bg-orange-200 p-4 text-red">{node.selector}</div>
                 </div>;
             }
         )

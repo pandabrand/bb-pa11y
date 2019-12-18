@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.overview-container:last-child() {
+    margin-right: 0;
+}

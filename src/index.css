@@ -8348,8 +8348,8 @@ video {
   z-index: auto;
 }
 
-h1 {
-  color: blanchedalmond;
+.overview-container:last-child() {
+  margin-right: 0;
 }
 
 @media (min-width: 640px) {
