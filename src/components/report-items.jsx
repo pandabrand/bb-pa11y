@@ -2,8 +2,10 @@ import React from 'react';
 
 class ReportItems extends React.Component {
     render() {
-        let results = Object.values(this.props.item);
-        let reportNodes = results[0].map(
+        // results as of now should only have one keyed array
+        let key = Object.keys(this.props.results)[0];
+
+        let reportNodes = this.props.results[key].map(
             function(node, index) {
                 return <div key={index} className="w-full bg-gray-500 mb-8 p-3">
                     <div className="text-lg text-white">{node.code}</div>

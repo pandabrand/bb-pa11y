@@ -9,11 +9,12 @@ class App extends React.Component {
 
   render() {
     const results = small.results;
+    const siteaddress = Object.keys(results)[0];
     return (
       <div className="container">
-        <Header />
+        <Header address={siteaddress} />
         <Overview total={small.total} passes={small.passes} errors={small.errors}/>
-        <ReportItems item={results} />
+        <ReportItems results={results} />
       </div>
     );
   }
