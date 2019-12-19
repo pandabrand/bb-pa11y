@@ -15,7 +15,7 @@ class Overview extends React.Component {
                 <div className="mr-2 flex-1">
                     <div className="rounded overflow-hidden shadow-lg">
                         <div className="px-6 py-4">
-                        <div className="font-bold text-xl mb-2">Passes</div>
+                        <div className="font-bold text-xl mb-2">Tests</div>
                         <div className="font-bold text-xl mb-2">{this.props.passes}</div>
                     </div>
                 </div>
