@@ -32,7 +32,9 @@ class Controls extends React.Component {
             .limit(10)
             .get()
             .then(query => {
-                query.docs.forEach(doc => {                    
+                query.docs.forEach(doc => { 
+                    console.log(typeof doc);
+                    console.dir(doc);
                     axios.post('/.netlify/functions/reporter', doc)
                     .then(response => {
                         this.setState({disabled: false});
