@@ -8,9 +8,10 @@ exports.handler = async (event, context) => {
     
     pa11y(parsedBody.loc, {})
     .then(results => {
+      console.dir(results);
       return {
-        statusCode: results.status,
-        body: results.data
+        statusCode: 200,
+        body: results
         // // more keys you can return:
         // headers: { "headerName": "headerValue", ... },
         // isBase64Encoded: true,
