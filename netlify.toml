@@ -1,7 +1,7 @@
 [build]
     command = "yarn prod"
-    functions = "functions-build"
-    publish = 'lambda'
+    functions = "functions"
+    build = "build"
 
 [dev]
     command = "yarn start"
