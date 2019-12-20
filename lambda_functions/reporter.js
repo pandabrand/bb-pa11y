@@ -6,7 +6,7 @@ exports.handler = async (event, context) => {
     const parsedBody = JSON.parse(event.body);
     console.dir(parsedBody);
     
-    pa11y(parsedBody.url, {})
+    pa11y(parsedBody.loc, {})
     .then(results => {
       return {
         statusCode: results.status,
