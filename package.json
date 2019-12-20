@@ -26,7 +26,7 @@
     "start:lambda": "netlify-lambda serve functions",
     "build:lambda": "netlify-lambda build functions",
     "postinstall": "netlify-lambda install",
-    "prod": "yarn run build:css && react-scripts build && yarn run build:lambda"
+    "prod": "yarn run build:css && yarn run build:lambda && react-scripts build"
   },
   "eslintConfig": {
     "extends": "react-app"
