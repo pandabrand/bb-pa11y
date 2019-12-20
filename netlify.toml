@@ -1,8 +1,8 @@
-functions = "./functions"
+functions = "functions"
 
 [build]
     command = "yarn prod"
-    functions = "build"
+    functions = "functions"
     publish = 'lambda'
 
 [dev]
