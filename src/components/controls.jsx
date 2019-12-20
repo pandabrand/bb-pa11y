@@ -14,12 +14,14 @@ class Controls extends React.Component {
 
     handleClick() {
         this.setState({disabled: true});
-        let testtime = moment.format('YYYYMMDDkkmmss');
-        let test = db.collection('sites')
+        let testtime = moment().format('YYYYMMDDkkmmss');
+        db.collection('sites')
             .doc('bluebottlecoffee')
             .collection('tests')
-            .add({test_name: testtime});
-        this.startTest(test.id);
+            .add({test_name: testtime})
+            .then(ref => { 
+                this.startTest(ref.id);
+            });
     }
 
     startTest(test_id) {
