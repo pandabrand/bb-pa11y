@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 class Controls extends React.Component {
     constructor(props) {
@@ -10,13 +11,24 @@ class Controls extends React.Component {
     }
 
     handleClick() {
-
+        this.setState({disabled: true});
+        axios.post('/.netlify/functions/reporter', {
+            name: 'Fred'
+        })
+        .then(repsonse => {
+            this.setState({disabled: false});
+            console.dir(repsonse);
+        })
+        .catch(error => {
+            this.setState({disabled: false});
+            console.error(error);
+        });
     }
 
     render() {
         return (
             <div className="flex m-4">
-                <div className="w-full p-1"><button disabled={this.state.disabled} className="btn btn-blue">Start Test</button><div className="messages px-2"></div></div>
+                <div className="w-full p-1"><button onClick={this.handleClick} disabled={this.state.disabled} className="btn btn-blue">Start Test</button><div className="messages px-2"></div></div>
             </div>
         )
     }
