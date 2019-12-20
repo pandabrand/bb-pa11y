@@ -1,0 +1,11 @@
+functions = "./functions"
+
+[build]
+    command = "yarn build"
+    functions = "build"
+    publish = 'lambda'
+
+[dev]
+    command = "yarn start"
+    port = 3000
+    functionsPort = 34567

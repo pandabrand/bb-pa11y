@@ -17,7 +17,8 @@ class App extends React.Component {
       site: {},
       urls: [],
       count: 0,
-      page: 1
+      page: 1,
+      cursor: {}
     };
   }
 
@@ -40,7 +41,7 @@ class App extends React.Component {
           this.add_urls();
         } else {
           this.setState({count: doc.size});
-          this.dataPagination();
+          this.initPagination();
         }
       })
       .catch(err => { console.log('error getting/updating collection', err) });
@@ -57,20 +58,37 @@ class App extends React.Component {
     });
   }
 
+  initPagination() {
+    db.collection('sites')
+      .doc('bluebottlecoffee')
+      .collection('urls')
+      .orderBy('loc')
+      .limit(10)
+      .get()
+      .then(query => {
+        let data = query.docs.map(doc => doc.data());
+        let cursor = query.docs[query.docs.length - 1]
+        this.setState({ 
+          urls: data,
+          cursor: cursor
+        });
+      });
+  }
+
   dataPagination(pageNumber = 1) {
-    let startNum = (pageNumber - 1) * 10;
-    console.log(startNum);
     let snapshot = db.collection('sites')
       .doc('bluebottlecoffee')
       .collection('urls')
       .orderBy('loc')
-      .startAt(startNum);
+      .startAfter(this.state.cursor);
       
     snapshot.limit(10).get().then(query => {
-      const data = query.docs.map(doc => doc.data());
+      let data = query.docs.map(doc => doc.data());
+      let cursor = query.docs[query.docs.length - 1]
       this.setState({ 
         urls: data,
-        pageNumber: pageNumber
+        pageNumber: pageNumber,
+        cursor: cursor
       });
     });
   }
@@ -83,10 +101,17 @@ class App extends React.Component {
     return (
       <div className="container">
         <Header site={this.state.site} />
-        <Overview total={small.total} passes={small.passes} errors={small.errors}/>
+        <Overview total={this.state.count} passes={small.passes} errors={small.errors}/>
         <Controls />
         <ReportItems results={this.state.urls} />
-        <Pagination activePage={this.state.page} itemsCountPerPage={10} totalItemsCount={this.state.count} pageRangeDisplayed={5} onChange={this.handlePageChange} />
+        <Pagination 
+          activePage={this.state.page} 
+          itemsCountPerPage={10} 
+          totalItemsCount={this.state.count} 
+          pageRangeDisplayed={5} 
+          onChange={this.handlePageChange} 
+          innerClass="flex list-reset border border-grey-light rounded w-auto font-sans" 
+          linkClass="block hover:text-white hover:bg-blue text-blue border-r border-grey-light px-3 py-2" />
       </div>
     );
   }

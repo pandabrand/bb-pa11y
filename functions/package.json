@@ -1,0 +1,14 @@
+{
+  "name": "reporter",
+  "version": "1.0.0",
+  "description": "pa11y reporter",
+  "main": "reporter.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Frederick Wells",
+  "license": "ISC",
+  "dependencies": {
+    "pa11y": "^5.3.0"
+  }
+}
