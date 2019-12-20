@@ -23,8 +23,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prebuild": "node ./scripts/installer.js",
-    "start:lambda": "netlify-lambda serve functions",
-    "build:lambda": "netlify-lambda build functions",
+    "start:lambda": "netlify-lambda serve lambda_functions",
+    "build:lambda": "netlify-lambda build lambda_functions",
     "postinstall": "netlify-lambda install",
     "prod": "yarn run build:css && yarn run build:lambda && react-scripts build"
   },

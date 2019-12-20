@@ -1,7 +1,7 @@
 [build]
     command = "yarn prod"
     functions = "functions"
-    build = "build"
+    publish = "build"
 
 [dev]
     command = "yarn start"
