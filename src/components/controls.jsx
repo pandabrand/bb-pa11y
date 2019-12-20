@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import moment from 'moment';
+import { db } from '../firebase';
 
 class Controls extends React.Component {
     constructor(props) {
@@ -12,17 +14,39 @@ class Controls extends React.Component {
 
     handleClick() {
         this.setState({disabled: true});
-        axios.post('/.netlify/functions/reporter', {
-            name: 'Fred'
-        })
-        .then(repsonse => {
-            this.setState({disabled: false});
-            console.dir(repsonse);
-        })
-        .catch(error => {
-            this.setState({disabled: false});
-            console.error(error);
-        });
+        let testtime = moment.format('YYYYMMDDkkmmss');
+        let test = db.collection('sites')
+            .doc('bluebottlecoffee')
+            .collection('tests')
+            .add({test_name: testtime});
+        this.startTest(test.id);
+    }
+
+    startTest(test_id) {
+        db.collection('sites')
+            .doc('bluebottlecoffee')
+            .collection('urls')
+            .orderBy('loc')
+            .limit(10)
+            .get()
+            .then(query => {
+                query.docs.forEach(doc => {                    
+                    axios.post('/.netlify/functions/reporter', doc)
+                    .then(response => {
+                        this.setState({disabled: false});
+                        console.dir(response);
+                        let results = response.data;
+                        results.test_id = test_id
+                        doc.collection('test_results')
+                        .add(results);
+                    })
+                    .catch(error => {
+                        this.setState({disabled: false});
+                        console.error(error);
+                    });
+                });
+            })
+
     }
 
     render() {
